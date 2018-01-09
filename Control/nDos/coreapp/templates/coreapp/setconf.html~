@@ -1,0 +1,75 @@
+{% extends 'coreapp/base.html' %}
+
+{% block title %}Task Setting{% endblock %}
+{% block content %}
+	<div class="jumbotron visible-lg visible-md visible-sm visible-xs"  style="margin-top:10px;margin-bottom:0px;padding:0px;background-color:white;" draggable="true">
+	      <div class="container" style="padding:0px;margin-top:20px;margin-bottom:0px;" >
+		   <h3><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Task parameters setting<small>  configure your task</small></h3>
+	      </div>
+              <div class="container" style="padding:0px;margin-top:0px;margin-bottom:0px;" >
+                    <div class="col-md-12" style="padding-left:5px;margin-left:0px;" >
+                         <div class="row" style="padding:8px;margin-left:0px;background-color:#fafafa;">
+                                {% if "dominate" in flag %}  
+                                <div class = "col-md-5">
+                                        
+		                        <div class="thumbnail" style="margin-bottom:10px;padding-left:10%;padding-right:10%;padding-top:10%">
+                                                
+						<form data-toggle="validator" role="form" action="{% url 'setConfig' %}" method="post">{% csrf_token %}
+						  <div class="form-group">
+						    <label for="category" class="control-label">Category</label>
+						    <input type="text" class="form-control" name="category" placeholder="Domainate" value="dominate" readonly>
+						  </div>
+		                                  <div class="form-group">
+						    <label for="target" class="control-label">Target</label>
+						    <input type="text" class="form-control" name="target" placeholder="Input target ip" maxlength="20" minlength="7" required >
+		                                    <div class="help-block with-errors">
+	ip format: 0.0.0.0</div>
+						  </div>
+		                                  <div class="form-group">
+						    <label for="threads" class="control-label">Threads</label>
+						    <input type="text" class="form-control" name="threads" pattern="^[1-9]{1,2}$" maxlength="15"  placeholder="Input the number of the thread" required>
+		                                    <div class="help-block with-errors">
+	The number of threads must be limited to between [1,99]</div>
+						  </div>
+		                                  <div class="form-group">
+						    <label for="pps" class="control-label">PPS limiter</label>
+						    <input type="text" class="form-control" name="pps" placeholder="-1" maxlength="15" value="-1" required >
+		                                    <div class="help-block with-errors">
+	PPS limiter default value is -1</div>
+						  </div>
+		                                  <div class="form-group">
+						    <label for="time" class="control-label">Timer</label>
+						    <input type="text" class="form-control" name="timer" pattern="^[1-9]{1,}$" maxlength="15"  placeholder="Input the number of the thread" required>
+		                                    <div class="help-block with-errors">
+	The time of test is in seconds</div>
+						  </div>
+		                                  <div class="form-group">
+						    <label for="pressure" class="control-label">Pressure</label>
+						    <input type="text" class="form-control" name="pressure" pattern="\d+\.\d{1,2}$" maxlength="15"  placeholder="Pressure: 0.10-0.99" required>
+		                                    <div class="help-block with-errors">
+	Pressure: 0.10-0.99</div>
+						  </div>
+						  <div class="form-group">
+						    <button type="submit" class="btn btn-primary">Submit</button>
+						  </div>
+						</form>
+					</div>
+					
+                                </div>
+                                <div class = "col-md-7">
+                                        <h3>Dominate Method Attack</h3>
+					<p>
+                                        Dominate Method  Attack is a New method of DDoS Attack on Layer4 of Network. the method is able to drop servers from ddos protected networks such as OVH, Voxility by bypassing their firewall and sending the attack straight to the server itself, therefore causing it crash completely.
+
+					</p>
+                                        <p>As for the moment, as a server owner with a limited to no access to the firewall (internal or external), there is nothing in your hands. This attack should be blocked by the ddos protection network that you are in.
+					</p>
+                                </div>
+			</div> 
+                    </div>
+                    
+              <div>
+        </div>
+<script>$('#form').validation();</script>
+{% endblock %}
+

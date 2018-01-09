@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <title>G! - Home</title>
+    <meta http-equiv="Content-Type" content="text/html; UTF-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/form.css" type="text/css" />
+    <script type="text/javascript" src=""></script>
+</head>
+
+<body>
+   <div class="navbg" >
+	<ul id="nav"> 
+		 <li><a href="http://www.divcss5.com/">Home</a></li> 
+		 <li><a href="http://www.divcss5.com/html/">Shipping</a></li> 
+		 <li><a href="http://www.divcss5.com/rumen/">Billing</a></li> 
+		 <li><a href="http://www.divcss5.com/css-tool/">Accout info</a></li> 
+		 <li><a href="http://www.divcss5.com/css-texiao/">Readme</a></li> 
+	</ul>
+   </div> 
+   <div class=" bg">
+	<div class="contain">
+		<div class="left">
+                     lalalala
+		</div>
+                <div class="right">
+			<form action="" method="post" class="basic-grey">
+				<h1>Login
+				</h1>
+				<label>
+				<span>Username :</span>
+				<input id="username" type="text" name="username" placeholder="Username" />
+				</label>
+				<label>
+				<span>Password :</span>
+				<input id="pwd" type="password" name="pwd" placeholder="Your password" />
+				</label>
+				<label>
+				<span>&nbsp;</span>
+				<input type="button" class="button" value="Login" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                <a type="button"  href="Register.php">Register</a>
+				</label>
+			</form>
+                </div>
+	</div>
+
+   </div>
+
+</body>
+</html>

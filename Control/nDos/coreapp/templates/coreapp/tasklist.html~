@@ -1,0 +1,99 @@
+{% extends 'coreapp/base.html' %}
+
+{% block title %}欢迎光临首页{% endblock %}
+{% block content %}
+	<div class="jumbotron visible-lg visible-md visible-sm visible-xs"  style="margin-top:10px;margin-bottom:0px;padding:0px;background-color:white;" draggable="true">
+              <div class="container" style="padding:0px;margin-top:0px;margin-bottom:10px;" >
+		   <h3><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> New task<small>  build new task</small></h3>
+	      </div>
+              <div class="container" style="padding:0px;margin-top:10px;margin-bottom:10px;" >
+                    <div class="col-md-12" style="padding-left:5px;margin-left:0px;" >
+                         <div class="row" style="padding:8px;margin-left:0px;background-color:#fafafa;margin-bottom:10px">
+                                <div class="col-md-10" style="padding-left:0px;margin-left:0px;">
+                                        
+					<div class="dropdown"><span class="glyphicon glyphicon-search" ></span>
+					  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+					    Select ndos category
+					    <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'showConfig' 1 %}">domainate</a></li>
+					    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'showConfig' 2 %}">SSYN</a></li>
+					    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+					    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+					  </ul>
+					</div>
+				</div>
+				
+
+
+                         </div>
+                    </div>
+              <div>
+	      <div class="container" style="padding:0px;margin-top:20px;margin-bottom:0px;" >
+		   <h3><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> TASK LISTS<small>  watch your tasks {{ localtime }}</small></h3>
+	      </div>
+              <div class="container" style="padding:0px;margin-top:0px;margin-bottom:0px;" >
+                    <div class="col-md-12" style="padding-left:5px;margin-left:0px;" >
+                         <div class="row" style="padding:8px;margin-left:0px;background-color:#fafafa;">
+				<div class="thumbnail" style="margin-bottom:10px">
+					<table id="zonelist" class="table table-striped">
+					   <thead>
+						  <tr>
+							 
+								<th width="1%"></th>
+								<th width="4%"><center>No.</center></th>
+                                                                <th width="6%"><center>Target</center></th>
+                                                                <th width="6%"><center>Timer(s)</center></th>
+                                                                <th width="6%"><center>Pressure</center></th>
+								<th><center>Parameters</center></th>
+                                                                <th width="10%"><center>Build time</center></th>
+								<th width="6%"><center>State</center></th>
+                                                                <th width="20%"><center>details</center></th>
+								<th width="15%"><center>Operation</center></th>
+							 
+						  </tr>
+					   </thead>
+					   <tbody>
+                                                  {% for cell in tasklists %}
+						  <tr>
+							<td></td>
+							<td><center><font color="#007edf"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>{{ cell.id }}</font></center></td>
+                                                        <td><center>{{ cell.target }}</center></td>
+                                                        <td><center>{{ cell.timer }}</center></td>
+                                                        <td><center>{{ cell.pressure }}</center></td>
+							<td><center>{{ cell.parameters }}</center></td>
+							<td><center>{{ cell.date_time }}</center></td>
+							<td>
+                                                            <center>
+                                                                 {% if cell.state == 0  %}
+                                                                     waiting
+                                                                 {% else %}
+                                                                     working
+                                                                 {% endif %}
+                                                            </center>
+                                                        </td>
+                                                        <td><center>{{ cell.detail }}</center></td>
+							<td>
+                                                            <center>
+                                                                 {% if cell.state == 0  %}
+                                                                     <a href = "{% url 'pressTest' cell.id %}" type="button" class="btn btn-danger">START</a>
+                                                                 {% else %}
+                                                                     <a type="button" class="btn btn-danger">STOP</a>
+                                                                 {% endif %}
+                                                                     <a href = "{% url 'delTask' cell.id %}" type="button" class="btn btn-danger">Del</a>
+                                                            </center>
+                                                        </td>
+						  </tr>
+                                                  {% endfor %}
+
+					   </tbody>
+					</table>
+				</div> 
+	
+			</div> 
+                    </div>
+              <div>
+        </div>
+{% endblock %}
+
